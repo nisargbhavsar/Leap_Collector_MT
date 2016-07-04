@@ -1,0 +1,4 @@
+Subject_Name,Trial_Number,View_Condition,Target_Location,Trial_Condition_5,Trial_Condition_4,Trial_Condition_3,Trial_Condition_2,Trial_Condition_1
+Matlab_Test,1,viewing condition,1,N/A,N/A,N/A,N/A,first condition/first trial
+Matlab_Test,2,it was dark; it was kinda rainy,1,N/A,N/A,N/A,N/A,trialcondition
+Matlab_TEST_2,3,viewing condition,2,N/A,N/A,N/A,N/A,trial3condiiton
