@@ -434,12 +434,13 @@ public class LeapListener extends Listener {
 	 * Start streaming data
 	 */
 	public void startStreaming() {
-		try {
-			RS232Protocol.port.writeByte((byte) 1);
-		} catch (SerialPortException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//For Synch Delay Testing:
+//		try {
+//			RS232Protocol.port.writeByte((byte) 1);
+//		} catch (SerialPortException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		isStream = true;
 	}
 

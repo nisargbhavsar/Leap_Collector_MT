@@ -32,8 +32,8 @@ public class RS232Listener implements SerialPortEventListener
 		   int bytesCount = event.getEventValue();
 	       try {
 	    	   System.out.println(port.readBytes(bytesCount));
-	    	   //Synch Testing	    	   
-	    	   //System.out.println("Recieved the Bytes");
+	    	//For Synch Testing	    	   
+	    	//System.out.println("Recieved the Bytes");
 			//System.out.println("Finished Reading bytes, writing now");
 			//port.writeByte((byte) 1);
 			//System.out.println("Finished Writing");

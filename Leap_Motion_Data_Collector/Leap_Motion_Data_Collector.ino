@@ -49,14 +49,7 @@ void loop()
       count++;
     }
 
-    if (Serial.available() > 0) {
-        // read the incoming byte
-        analogWrite(8,255);
-        delay(1000);//Delay so we can see the pulse
-        analogWrite(8,0);
-        int incomingByte =0;
-        incomingByte = Serial.read(); //Clear the serial buffer
-        } 
+
 } 
   /*Testing Code
     digitalWrite(led, HIGH);
@@ -73,7 +66,6 @@ void loop()
     {
       if(count%2==0)
       {
-        digitalWrite(led,LOW);  
         Serial.write(1);
       }
       prev_logicState=logicState;
@@ -87,5 +79,6 @@ void loop()
         analogWrite(8,0);
         int incomingByte =0;
         incomingByte = Serial.read(); //Clear the serial buffer
-        } 
+    } 
+
    */
