@@ -1,1 +1,0 @@
-Subject_Name,Trial_Number,View_Condition,Target_Location,Trial_Condition_5,Trial_Condition_4,Trial_Condition_3,Trial_Condition_2,Trial_Condition_1

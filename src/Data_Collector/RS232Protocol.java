@@ -6,14 +6,14 @@ import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException; 
-public class RS232Protocol
+public class RS232Protocol extends Thread
 {
 //Serial port we're manipulating.
 static SerialPort port; 
 //Class: RS232Listener
 public class RS232Listener implements SerialPortEventListener
 {
-//	public int logicLevel=0;
+
    public void serialEvent(SerialPortEvent event)
    {	
 	   if (event.getEventValue()>0){      
@@ -31,51 +31,24 @@ public class RS232Listener implements SerialPortEventListener
 		   
 		   int bytesCount = event.getEventValue();
 	       try {
-			System.out.println(port.readBytes(bytesCount));
+	    	   System.out.println(port.readBytes(bytesCount));
+	    	   //Synch Testing	    	   
+	    	   //System.out.println("Recieved the Bytes");
+			//System.out.println("Finished Reading bytes, writing now");
+			//port.writeByte((byte) 1);
+			//System.out.println("Finished Writing");
 	       } catch (SerialPortException e) {
 			e.printStackTrace();
 	       }
-	   }
-     //Check if data is available.
-     //if (event.isRXCHAR() && event.getEventValue() >= 0)
-//	   System.out.println("Leap is streaming");
-//	 if (event.getEventValue()>0)
-//     {
-//       try
-//       {
-//         logicLevel = event.getEventValue();
-//         if (logicLevel == 2)
-//         {
-//        	// LeapTest.startStream.setText("Streaming...");
-//        	 System.out.println("Leap is streaming");
-//        	 //LeapTest.keyPressed(event);
-//        	 LeapTest.listener.startStreaming();
-//        	 LeapTest.set_isStream(true);
-//        	 
-//        	 
-//         }
-//         else if (logicLevel == 1)
-//         {
-//        	 //LeapTest.startStream.setText("Start Streaming"); 
-//        	 System.out.println("Leap is not streaming");
-//        	
-//        	 LeapTest.saveFile();
-//        	 LeapTest.set_isStream(false); 
-//        	
-//
-//         }
-//         System.out.print(port.readString(logicLevel));
-//         
-//       }          
-//       catch (SerialPortException e) { e.printStackTrace(); //For debugging
-//         try {
-//			System.out.print(port.readString(logicLevel));
-//		} catch (SerialPortException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		} }
-     
+	   }     
    }
+}
+
+public void run()
+{
+	RS232Protocol serial = new RS232Protocol();
+	serial.connect("COM3"); 
+	
 }
 //Member Function: connect
 public void connect(String newAddress)
@@ -108,6 +81,7 @@ public void disconnect()
    }
 }
 //Member Function: write
+//Not used in applet
 public void write(String text)
 {
    try

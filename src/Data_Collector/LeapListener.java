@@ -34,8 +34,8 @@ public class LeapListener extends Listener {
 	static int counter = 0;
 	static int counter2 = 0;
 	
-	@SuppressWarnings("unused")
-	private RS232Protocol serial; //Initialize serial communication
+//	@SuppressWarnings("unused")
+//	private RS232Protocol serial; //Initialize serial communication
 	//float startTime =-1;
 	
 	public static final double dist = 0.0;	//distance of leap motion sensor to the participant
@@ -48,12 +48,12 @@ public class LeapListener extends Listener {
 	 * @param frameData
 	 *            Text Area that shows the data of the leap motion
 	 */
-	public LeapListener(JTextArea frameData, JTextArea[] fingerData, JTextArea[] apertureData, JTextArea [] velocityData, RS232Protocol serial) {
+	public LeapListener(JTextArea frameData, JTextArea[] fingerData, JTextArea[] apertureData, JTextArea [] velocityData) {
 		this.frameData = frameData;
 		this.fingerData = fingerData;
 		this.apertureData = apertureData;
 		this.velocityData = velocityData;
-		this.serial = serial;
+//		this.serial = serial;
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class LeapListener extends Listener {
 			
 			if (initialTimstamp == 0) {
 				initialTimstamp = currentFrame.timestamp();
-				System.out.println(initialTimstamp + "");
+				//System.out.println(initialTimstamp + "");
 				counter = LeapTest.recordDuration;
 			}
 			
@@ -144,7 +144,7 @@ public class LeapListener extends Listener {
 				// Get reference Timestamp
 				if (initialTimstamp == 0) {
 					initialTimstamp = currentFrame.timestamp();
-					System.out.println(initialTimstamp + "");
+					//System.out.println(initialTimstamp + "");
 					counter = LeapTest.recordDuration;
 				}
 
@@ -182,54 +182,7 @@ public class LeapListener extends Listener {
 						.getY(), hands.get(0).palmPosition().getZ(),x1, y1, z1,
 						w_pos[0],w_pos[1],w_pos[2]));			
 				hand_data.add((currentFrame.timestamp() - initialTimstamp)
-						/ 1000 + " ");
-				
-//				// Add index finger data
-//				indexfinger_data.add(String.format("%f %f %f", x2, y2, z2, x1, y1, z1));
-//				indexfinger_data.add((currentFrame.timestamp() - initialTimstamp)
-//						/ 1000 + " ");
-//				
-//				
-//				
-//				thumb_data.add (String.format("%f %f %f", x1, y1, z1));
-//				thumb_data.add((currentFrame.timestamp() - initialTimstamp) / 1000 + " ");
-////				
-////				//Add Velocity Data
-////				Vector thumb_velocity = thumb.tipVelocity();
-////				Vector index_velocity = index.tipVelocity();
-////				Vector palm_velocity = hands.get(0).palmVelocity();
-////				
-////				float [] vel = new float [6];
-////				vel[0] = thumb_velocity.getX()-palm_velocity.getX();
-////				vel[1] = thumb_velocity.getY()-palm_velocity.getY();
-////				vel[2] = thumb_velocity.getZ()-palm_velocity.getZ();
-////				vel[3] = index_velocity.getX()-palm_velocity.getX();
-////				vel[4] = index_velocity.getY()-palm_velocity.getY();
-////				vel[5] = index_velocity.getZ()-palm_velocity.getZ();
-////				
-////				velocity_data.add (String.format("%f %f %f %f %f %f", vel[0], vel[1], vel[2], vel[3], vel[4], vel[5]));
-////				velocity_data.add((currentFrame.timestamp() - initialTimstamp) / 1000 + "");
-////			
-////				//Add thumb and index fingers height
-////				height_thumb_index_data.add(String.format("%f %f", y1,y2));
-////				
-////				
-////				height_thumb_index_data.add((currentFrame.timestamp() - initialTimstamp) / 1000 + "");
-////				
-//				
-//				
-//				
-//				wrist_position_data.add(String.format("%f %f %f", w_pos[0],w_pos[1],w_pos[2]));
-//				wrist_position_data.add((currentFrame.timestamp() - initialTimstamp) / 1000 + " ");			
-//				
-////				//Sagittal Position (thumb ->z,x, index->z,x)
-////				double thumb_sag_pos = Math.sqrt(Math.pow((z1 - dist),2)+Math.pow(x1,2));
-////				double index_sag_pos = Math.sqrt(Math.pow((z2 - dist),2)+Math.pow(x2,2));
-////				
-////				sagittal_position_data.add(String.format("%f %f",thumb_sag_pos,index_sag_pos));
-////				sagittal_position_data.add((currentFrame.timestamp() - initialTimstamp) / 1000 + "");			
-//				
-//				
+						/ 1000 + " ");			
 			}
 			
 			//If lost track of the hands during motion, all data values will have 999
@@ -241,7 +194,7 @@ public class LeapListener extends Listener {
 					// Get reference Timestamp
 					if (initialTimstamp == 0) {
 						initialTimstamp = currentFrame.timestamp();
-						System.out.println(initialTimstamp + "");
+						//System.out.println(initialTimstamp + "");
 						counter = LeapTest.recordDuration;
 					}
 
@@ -481,6 +434,12 @@ public class LeapListener extends Listener {
 	 * Start streaming data
 	 */
 	public void startStreaming() {
+		try {
+			RS232Protocol.port.writeByte((byte) 1);
+		} catch (SerialPortException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		isStream = true;
 	}
 

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 //import jxl.write.*; 
 
 //public class LeapTest extends JFrame implements KeyListener{
-public class LeapTest extends JFrame{
+public class LeapTest extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	// Declare variables
@@ -77,7 +77,7 @@ public class LeapTest extends JFrame{
 	static boolean isViewCondChanged = false;
 	
 	//Initialize serial communications
-	RS232Protocol serial = new RS232Protocol();
+//	RS232Protocol serial = new RS232Protocol();
 		
 	JTextField typingArea;
 
@@ -85,16 +85,16 @@ public class LeapTest extends JFrame{
 	 * 
 	 * Constructor for the main
 	 */
-	private LeapTest() {
+	LeapTest() {
 		super("Leap Motion Data Collector");
 		initiateUI();
 	}
 
-	public static void main (String[] args) {
-		// Initiate new window
-		new LeapTest();
-		
-	}
+//	public static void main (String[] args) {
+//		// Initiate new window
+//		new LeapTest();
+//		
+//	}
 
 	/**
 	 * Initiate UI - Add texts, buttons and button listener
@@ -281,6 +281,25 @@ public class LeapTest extends JFrame{
 		});
 		view_condition.setBounds(10, 605, 140, 25);
 		
+		trialNumber = new HintTextField("Change Trial #");
+		//trialNumber.setEditable(true);
+		trialNumber.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (Integer.parseInt(trialNumber.getText()) > 0)
+						trial = Integer.parseInt(trialNumber.getText());
+					else
+						JOptionPane.showMessageDialog(null, "Invalid Number",
+								"Error", JOptionPane.PLAIN_MESSAGE);
+				} catch (Exception exception) {
+					JOptionPane.showMessageDialog(null, "Invalid Number",
+							"Error", JOptionPane.PLAIN_MESSAGE);
+				}
+			}
+		});
+		trialNumber.setBounds(150, 460, 140, 50);
+		
 		target_location = new HintTextField("Please run a trial");
 		target_location.addActionListener(new ActionListener() {
 			@Override
@@ -358,11 +377,11 @@ public class LeapTest extends JFrame{
 				{
 					event_view_condition.add("N/A");
 				}
-				System.out.println(event_trial_conditions);
+				//System.out.println(event_trial_conditions);
 				
 				event_trialnum.add(Integer.toString(trial-1));
 				event_subject.add(s_id);
-				System.out.println(event_subject);
+				//System.out.println(event_subject);
 				}
 			}
 		);
@@ -412,24 +431,6 @@ public class LeapTest extends JFrame{
 		});
 		changeDirectory.setBounds(10, 460, 140, 50);
 
-		trialNumber = new HintTextField("Change Trial #");
-		trialNumber.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					if (Integer.parseInt(trialNumber.getText()) > 0)
-						trial = Integer.parseInt(trialNumber.getText());
-					else
-						JOptionPane.showMessageDialog(null, "Invalid Number",
-								"Error", JOptionPane.PLAIN_MESSAGE);
-				} catch (Exception exception) {
-					JOptionPane.showMessageDialog(null, "Invalid Number",
-							"Error", JOptionPane.PLAIN_MESSAGE);
-				}
-			}
-		});
-		trialNumber.setBounds(150, 460, 140, 50);
-		
 		calibrate = new JButton ("Calibrate");
 		calibrate.addActionListener(new ActionListener(){
 			@Override
@@ -439,22 +440,20 @@ public class LeapTest extends JFrame{
 					listener.startStreaming();
 					isCalibrate = true;
 				} else if (isCalibrate) {
-					
-					saveFile();
 					set_isStream(false);
+					saveFile();
 					isCalibrate = false;
-					
 				}
 				}
 			}
 		);
 		calibrate.setBounds(10, 520, 140, 50);
 		
-		serial.connect("COM3"); 
+		//serial.connect("COM3"); 
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 		    @Override
 		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-		        serial.disconnect();
+		        //serial.disconnect();
 		        System.exit(0);
 		    }
 		});
@@ -487,7 +486,7 @@ public class LeapTest extends JFrame{
 		//this.add(status_update);
 
 		// Define leap motion event listener and add listener to leap motion
-		listener = new LeapListener(frameData, fingerData, apertureData, velocityData, serial);
+		listener = new LeapListener(frameData, fingerData, apertureData, velocityData);
 		controller.addListener(listener);
 
 		// Check if leap motion is connected to the computer
@@ -526,9 +525,9 @@ public class LeapTest extends JFrame{
 		Event_File.createNewFile();
 		fileWriter3 = new FileWriter(Event_File);
 		String event_file_data = "";
-		event_file_data =  "Subject_Name" + "," + "Trial_Number" + "," + "View_Condition"+","+"Target_Location"
-				+","+"Trial_Condition_5" + "," + "Trial_Condition_4" + "," + "Trial_Condition_3"+","
-					+"Trial_Condition_2"+"," + "Trial_Condition_1" + "\r\n";
+		event_file_data =  "Subject_Name,Trial_Number,View_Condition,Target_Location,"
+				+ "Trial_Condition_5,Trial_Condition_4,Trial_Condition_3,Trial_Condition_2,"
+				+ "Trial_Condition_1" + "\r\n";
 		for (int i = 0; i < event_trialnum.size(); i += 1) {
 			event_file_data = event_file_data + event_subject.get(i) + "," + event_trialnum.get(i) + "," + 
 					event_view_condition.get(i) + "," + event_target_loc.get(i);
