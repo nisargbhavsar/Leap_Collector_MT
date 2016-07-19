@@ -47,7 +47,7 @@ public class RS232Listener implements SerialPortEventListener
 public void run()
 {
 	RS232Protocol serial = new RS232Protocol();
-	serial.connect("COM3"); 
+	serial.connect("COM4"); 
 	
 }
 //Member Function: connect
@@ -81,7 +81,7 @@ public void disconnect()
    }
 }
 //Member Function: write
-//Not used in applet
+//Not used in collection, (used for Synch test)
 public void write(String text)
 {
    try
