@@ -7,6 +7,10 @@ Multi-threaded java data collection application for the Leap Motion Controller.
 This application is used to collect hand motion data for tasks such as pointing and grasping for later analysis.
 It includes Arduino files needed for temporal sync with the Eyelink eye-tracker.
 
+The GUI displays information about the hands currently being tracked, including positions of all phalanges and the palm, the velocities of the phalanges and the palm and the identification number of the hands being tracked. 
+
+The data streaming can be started/stoped by pressing the Start Streaming button, and also by using the Arduino Uno sync set-up.
+
 # Sync:
 1. The Eyelink program (Experiment Builder) can change the TTL level of the status pins of the parallel port on the host computer. The pre-set TTL level is high. When recording is begining, the TTL level changes from high to low, then back to high (inverted pulse). When recording has ended, the TTL level again changes mimicking the inverted pulse.
 2. When the Arduino pin 12 changes logic state twice, a '1' is written to the serial buffer. 
